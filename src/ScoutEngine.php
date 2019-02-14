@@ -162,13 +162,14 @@ class ScoutEngine extends Engine
 
     /**
      * Map the given results to instances of the given model.
-     * @param  mixed  $results
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param Builder $builder
+     * @param  mixed $results
+     * @param  \Illuminate\Database\Eloquent\Model $model
      * @return Collection
      */
-    public function map($results, $model)
+    public function map(Builder $builder, $results, $model)
     {
-        if ($results['hits']['total'] === 0) {
+        if (count($results['hits']['total']) === 0) {
             return Collection::make();
         }
 
@@ -194,5 +195,16 @@ class ScoutEngine extends Engine
     public function getTotalCount($results)
     {
         return $results['hits']['total'];
+    }
+
+    /**
+     * Flush all of the model's records from the engine.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model $model
+     * @return void
+     */
+    public function flush($model)
+    {
+        // TODO: Implement flush() method.
     }
 }
